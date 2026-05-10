@@ -1,31 +1,27 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+namespace Lab9.Green;
 
-namespace Lab9.Green
-{
-    public class Task3 : Green
+public class Task3 : Green
     {
         private string _substring;
-
+        
         public string[] Output { get; private set; }
-
+        
         public Task3(string input, string substring) : base(input)
         {
-            _substring = substring;
+            _substring = substring ?? "";
             Output = new string[0];
         }
-
+        
         public override void Review()
         {
+            if (string.IsNullOrEmpty(_substring))
+                return;
             string[] foundWords = new string[1000];
             string[] uniqueCheck = new string[1000];
             int foundCount = 0;
             int uniqueCount = 0;
             string currentWord = "";
-
+            
             for (int i = 0; i < Input.Length; i++)
             {
                 char ch = Input[i];
@@ -62,7 +58,7 @@ namespace Lab9.Green
                     }
                 }
             }
-
+            
             if (currentWord.Length > 0)
             {
                 bool contains = currentWord.ToLower().Contains(_substring.ToLower());
@@ -99,15 +95,14 @@ namespace Lab9.Green
             {
                 return "";
             }
-
+            
             string result = Output[0];
-
+            
             for (int i = 1; i < Output.Length; i++)
             {
                 result += Environment.NewLine + Output[i];
             }
-
+            
             return result;
         }
     }
-}
